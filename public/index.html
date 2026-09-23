@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>R 타이핑 랩</title>
+  <meta name="description" content="R 명령어를 직접 입력하며 배우고, 실시간 순위 퀴즈로 실력을 겨루는 학습 사이트" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">R</span><span>타이핑 랩</span></div>
+    <nav id="nav" hidden>
+      <button data-view="learn" class="active">학습</button>
+      <button data-view="quiz">퀴즈 · 실시간 순위</button>
+      <button data-view="console">자유 콘솔</button>
+    </nav>
+    <div class="top-right">
+      <span id="rStatus" class="pill loading" title="브라우저에서 실제 R(webR)을 실행합니다"><i></i>R 엔진 준비 중…</span>
+      <span id="userName" class="user"></span>
+      <button id="logoutBtn" class="ghost small" hidden>로그아웃</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 로그인 / 회원가입 -->
+    <section id="view-auth" class="view auth-view" hidden>
+      <div class="auth-hero">
+        <h1>R을 <em>손으로</em> 익히세요</h1>
+        <p>브라우저 안에서 진짜 R이 실행됩니다. 명령어를 직접 입력하고, 결과를 확인하고, 퀴즈에서 친구들과 실시간으로 순위를 겨뤄 보세요.</p>
+        <pre class="hero-code"><span class="c">&gt; </span>scores &lt;- c(88, 95, 72)
+<span class="c">&gt; </span>mean(scores)
+<span class="o">[1] 85</span></pre>
+      </div>
+      <div class="card auth-card">
+        <div class="tabs">
+          <button id="tabLogin" class="active">로그인</button>
+          <button id="tabSignup">회원가입</button>
+        </div>
+        <form id="authForm" autocomplete="on">
+          <label class="signup-only" hidden>이름 (순위표에 표시)
+            <input name="name" maxlength="20" placeholder="홍길동" />
+          </label>
+          <label class="signup-only" hidden>학번 (선택)
+            <input name="studentId" maxlength="20" placeholder="20261234" />
+          </label>
+          <label>이메일
+            <input name="email" type="email" required autocomplete="email" placeholder="you@school.ac.kr" />
+          </label>
+          <label>비밀번호
+            <input name="password" type="password" required minlength="6" autocomplete="current-password" placeholder="6자 이상" />
+          </label>
+          <p id="authError" class="error" hidden></p>
+          <button id="authSubmit" class="primary block" type="submit">로그인</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 학습 -->
+    <section id="view-learn" class="view learn-view" hidden>
+      <aside class="lesson-nav">
+        <div class="progress-summary">
+          <div class="ps-label">전체 진도</div>
+          <div class="ps-bar"><i id="totalBar"></i></div>
+          <div id="totalText" class="ps-text"></div>
+        </div>
+        <ol id="lessonList"></ol>
+      </aside>
+      <article id="lesson" class="lesson"></article>
+    </section>
+
+    <!-- 퀴즈 -->
+    <section id="view-quiz" class="view quiz-view" hidden>
+      <div id="quizMain" class="quiz-main"></div>
+      <aside class="board-panel card">
+        <div class="board-head">
+          <h3>실시간 순위</h3>
+          <span id="roomLabel" class="room-tag"></span>
+          <span class="live"><i></i>LIVE</span>
+        </div>
+        <ol id="board" class="board"></ol>
+        <p id="boardEmpty" class="muted small">아직 참가자가 없어요. 첫 번째 도전자가 되어 보세요!</p>
+      </aside>
+    </section>
+
+    <!-- 자유 콘솔 -->
+    <section id="view-console" class="view console-view" hidden>
+      <div class="card">
+        <div class="section-head">
+          <h2>자유 콘솔</h2>
+          <p class="muted">아무 R 코드나 입력해 보세요. <kbd>Ctrl</kbd>+<kbd>Enter</kbd>로 실행, 변수는 계속 유지됩니다.</p>
+        </div>
+        <div id="consoleChips" class="chips"></div>
+        <div id="consoleEditor"></div>
+        <div id="consoleOut" class="output"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+</body>
+</html>
