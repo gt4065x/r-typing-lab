@@ -2,6 +2,8 @@
 
 R 명령어를 직접 입력하면서 배우는 학습 사이트입니다. 브라우저에서 진짜 R([webR](https://docs.r-wasm.org/webr/latest/))이 실행되고, 퀴즈 점수는 Firebase Realtime Database를 통해 실시간 순위표에 반영됩니다.
 
+**사이트 주소:** https://gt4065x.github.io/r-typing-lab/ (main 브랜치에 push하면 GitHub Actions가 `public/`을 자동 배포합니다)
+
 ## 구성
 
 | 파일 | 역할 |
